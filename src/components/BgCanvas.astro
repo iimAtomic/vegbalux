@@ -1,0 +1,103 @@
+---
+---
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<style>
+	#bg-canvas {
+		position: fixed;
+		inset: 0;
+		z-index: 0;
+		width: 100vw;
+		height: 100vh;
+		pointer-events: none;
+		opacity: 0.55;
+	}
+</style>
+
+<script>
+	import * as THREE from "three";
+
+	const canvas = document.getElementById("bg-canvas") as HTMLCanvasElement;
+	if (canvas && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(
+			60,
+			window.innerWidth / window.innerHeight,
+			0.1,
+			100
+		);
+		camera.position.z = 8;
+
+		const renderer = new THREE.WebGLRenderer({
+			canvas,
+			alpha: true,
+			antialias: true,
+		});
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		renderer.setSize(window.innerWidth, window.innerHeight);
+
+		// Particle field
+		const COUNT = 1400;
+		const positions = new Float32Array(COUNT * 3);
+		for (let i = 0; i < COUNT; i++) {
+			positions[i * 3] = (Math.random() - 0.5) * 22;
+			positions[i * 3 + 1] = (Math.random() - 0.5) * 14;
+			positions[i * 3 + 2] = (Math.random() - 0.5) * 14;
+		}
+		const geometry = new THREE.BufferGeometry();
+		geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+		const material = new THREE.PointsMaterial({
+			color: 0x4f8bff,
+			size: 0.028,
+			transparent: true,
+			opacity: 0.75,
+			sizeAttenuation: true,
+		});
+		const points = new THREE.Points(geometry, material);
+		scene.add(points);
+
+		// Thin wireframe icosahedron as a focal accent
+		const icoGeo = new THREE.IcosahedronGeometry(2.6, 1);
+		const icoMat = new THREE.MeshBasicMaterial({
+			color: 0x7c5cff,
+			wireframe: true,
+			transparent: true,
+			opacity: 0.18,
+		});
+		const ico = new THREE.Mesh(icoGeo, icoMat);
+		ico.position.set(3.2, 0.4, -2);
+		scene.add(ico);
+
+		let mouseX = 0;
+		let mouseY = 0;
+		window.addEventListener("mousemove", (e) => {
+			mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+			mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+		});
+
+		window.addEventListener("resize", () => {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		});
+
+		const clock = new THREE.Clock();
+		function animate() {
+			const t = clock.getElapsedTime();
+			points.rotation.y = t * 0.02;
+			points.rotation.x = t * 0.008;
+			ico.rotation.y = t * 0.06;
+			ico.rotation.x = t * 0.04;
+
+			camera.position.x += (mouseX * 0.6 - camera.position.x) * 0.02;
+			camera.position.y += (-mouseY * 0.4 - camera.position.y) * 0.02;
+			camera.lookAt(0, 0, 0);
+
+			renderer.render(scene, camera);
+			requestAnimationFrame(animate);
+		}
+		animate();
+	}
+</script>

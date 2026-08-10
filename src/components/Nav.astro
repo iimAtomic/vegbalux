@@ -1,0 +1,113 @@
+---
+const links = [
+	{ href: "#about", label: "Profil" },
+	{ href: "#experience", label: "Expérience" },
+	{ href: "#projects", label: "Projets" },
+	{ href: "#contact", label: "Contact" },
+];
+---
+
+<header class="nav" id="site-nav">
+	<div class="container nav-inner">
+		<a href="#top" class="logo mono">
+			LV<span>.</span>
+		</a>
+		<nav class="links">
+			{links.map((l) => (
+				<a href={l.href} class="nav-link">{l.label}</a>
+			))}
+		</nav>
+		<a href="#contact" class="cta mono">Me contacter</a>
+	</div>
+</header>
+
+<style>
+	.nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 50;
+		padding: 1.1rem 0;
+		backdrop-filter: blur(10px);
+		background: linear-gradient(to bottom, rgba(5, 7, 13, 0.85), transparent);
+		transition: background 0.3s ease, border-color 0.3s ease;
+		border-bottom: 1px solid transparent;
+	}
+
+	.nav.scrolled {
+		background: rgba(5, 7, 13, 0.75);
+		border-bottom: 1px solid var(--panel-border);
+	}
+
+	.nav-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+
+	.logo {
+		font-weight: 700;
+		font-size: 1.1rem;
+		letter-spacing: 0.05em;
+		color: var(--text);
+	}
+	.logo span {
+		color: var(--accent);
+	}
+
+	.links {
+		display: flex;
+		gap: 0.4rem;
+		padding: 0.3rem;
+		border: 1px solid var(--panel-border);
+		border-radius: 999px;
+		background: rgba(13, 18, 32, 0.6);
+	}
+
+	.nav-link {
+		font-size: 0.85rem;
+		color: var(--text-dim);
+		padding: 0.5rem 1rem;
+		border-radius: 999px;
+		transition: color 0.2s ease, background 0.2s ease;
+	}
+
+	.nav-link:hover {
+		color: var(--text);
+		background: var(--accent-soft);
+	}
+
+	.cta {
+		font-size: 0.78rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		border: 1px solid var(--panel-border);
+		padding: 0.6rem 1.1rem;
+		border-radius: 999px;
+		color: var(--text);
+		transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+		white-space: nowrap;
+	}
+
+	.cta:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+		background: var(--accent-soft);
+	}
+
+	@media (max-width: 720px) {
+		.links {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	const nav = document.getElementById("site-nav");
+	window.addEventListener("scroll", () => {
+		if (window.scrollY > 20) nav?.classList.add("scrolled");
+		else nav?.classList.remove("scrolled");
+	});
+</script>

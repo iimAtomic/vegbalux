@@ -1,0 +1,200 @@
+---
+const experiences = [
+	{
+		role: "Développeur Fullstack · React Native, Expo, TanStack Query, Claude Code",
+		company: "WeSee",
+		place: "Remote",
+		period: "Août 2026 → Sept. 2026",
+		points: [
+			"Conception et développement de l'app mobile Annonceur pour WeSee, plateforme publicitaire DOOH (tablettes taxis, tricycles, restaurants, supermarchés) à Cotonou.",
+			"Parcours complet de création de campagne : objectif, forfait, période de diffusion, upload vidéo, récapitulatif et paiement.",
+			"Intégration des moyens de paiement mobile locaux.",
+			"Consommation d'une API Django/PostgreSQL (auth MFA, upload médias Cloudflare R2), diagnostic de bugs serveur.",
+		],
+		tags: ["React Native", "Expo", "TanStack Query", "Claude Code"],
+	},
+	{
+		role: "Développeur Fullstack · Astro.js, GSAP, Lucide",
+		company: "WeSee · weseepub.com",
+		place: "Remote",
+		period: "Août 2026 → Sept. 2026",
+		points: [
+			"Développement complet du site vitrine de WeSee, de la maquette à la mise en production.",
+			"Configurateur de tarifs dynamique (toggle Visibilité/Conversion, 3 formules) et liste d'attente avec compte à rebours temps réel.",
+			"Intégration des moyens de paiement mobile locaux.",
+			"Versioning Git/GitHub et déploiement automatique sur Hostinger.",
+		],
+		tags: ["Astro.js", "GSAP", "Lucide", "Git"],
+	},
+	{
+		role: "Développeur Fullstack · Next.js, Astro.js, MongoDB",
+		company: "KOTEKA",
+		place: "Paris La Défense",
+		period: "Avr. 2026 → Juil. 2026",
+		points: [
+			"Conception d'une plateforme SaaS (oonecard.com) : profils digitaux dynamiques via NFC, QR code ou lien.",
+			"Analyse des frictions du parcours client et tests d'usage en contexte réel de prospection.",
+			"Utilisation de Claude Code et d'agents IA pour accélérer le développement.",
+		],
+		tags: ["Next.js", "Astro.js", "MongoDB", "Claude Code", "Cursor"],
+	},
+	{
+		role: "Projets pilotés et déployés · WordPress",
+		company: "Freelance",
+		place: "Temps libre",
+		period: "Nov. 2025 → Avr. 2026",
+		points: [
+			"Apifop Formation : refonte du site d'inscription à des formations sécurité, mise en conformité Qualiopi.",
+			"Kelly YT : conception et gestion d'un site e-commerce de vente d'items de jeux vidéo (WooCommerce), correction de bugs, formation de l'utilisateur.",
+		],
+		tags: ["WordPress", "Elementor", "WooCommerce", "PHP"],
+	},
+	{
+		role: "Développeur Fullstack · PHP/Symfony, Flutter, Node.js",
+		company: "MLH SAS (Alternance)",
+		place: "Nanterre",
+		period: "Nov. 2023 → Sept. 2025",
+		points: [
+			"API REST sous Symfony pour le backend d'une application mobile Flutter, outils d'Analytics.",
+			"Intégration complète de LimeSurvey en PHP : auth, CRUD, interfaçage API, versioning Git.",
+			"Pilotage d'une équipe de 2 développeurs et analyse des besoins fonctionnels.",
+		],
+		tags: ["PHP", "Symfony", "Flutter", "Node.js", "SQL"],
+	},
+];
+---
+
+<section class="experience" id="experience">
+	<div class="container">
+		<p class="section-tag">02 · Parcours</p>
+		<h2 class="section-title">Expérience <span>professionnelle</span></h2>
+
+		<div class="timeline">
+			{experiences.map((exp, i) => (
+				<div class="timeline-item" data-reveal>
+					<div class="timeline-marker">
+						<span class="marker-dot"></span>
+						{i !== experiences.length - 1 && <span class="marker-line"></span>}
+					</div>
+					<div class="timeline-card">
+						<div class="timeline-head">
+							<span class="period mono">{exp.period}</span>
+							<h3>{exp.role}</h3>
+							<p class="company">{exp.company} <span>· {exp.place}</span></p>
+						</div>
+						<ul>
+							{exp.points.map((p) => <li>{p}</li>)}
+						</ul>
+						<div class="tags">
+							{exp.tags.map((t) => <span class="mono">{t}</span>)}
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.experience {
+		position: relative;
+		z-index: 1;
+		padding: 7rem 0;
+	}
+
+	.timeline {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.timeline-item {
+		display: grid;
+		grid-template-columns: 28px 1fr;
+		gap: 1.6rem;
+	}
+
+	.timeline-marker {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.marker-dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: var(--accent);
+		box-shadow: 0 0 12px var(--accent);
+		margin-top: 0.5rem;
+		flex-shrink: 0;
+	}
+
+	.marker-line {
+		flex: 1;
+		width: 1px;
+		background: var(--panel-border);
+		margin-top: 0.4rem;
+	}
+
+	.timeline-card {
+		padding-bottom: 3rem;
+	}
+
+	.period {
+		font-size: 0.72rem;
+		color: var(--text-faint);
+		letter-spacing: 0.05em;
+	}
+
+	.timeline-head h3 {
+		font-size: 1.15rem;
+		font-weight: 600;
+		margin: 0.4rem 0 0.2rem;
+	}
+
+	.company {
+		font-size: 0.85rem;
+		color: var(--accent);
+		margin-bottom: 1rem;
+	}
+	.company span {
+		color: var(--text-faint);
+	}
+
+	.timeline-card ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-bottom: 1.2rem;
+	}
+
+	.timeline-card li {
+		font-size: 0.9rem;
+		color: var(--text-dim);
+		line-height: 1.6;
+		padding-left: 1.1rem;
+		position: relative;
+	}
+
+	.timeline-card li::before {
+		content: "›";
+		position: absolute;
+		left: 0;
+		color: var(--accent);
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tags span {
+		font-size: 0.72rem;
+		color: var(--text-dim);
+		border: 1px solid var(--panel-border);
+		padding: 0.3rem 0.6rem;
+		border-radius: 6px;
+	}
+</style>

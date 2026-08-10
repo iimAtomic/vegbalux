@@ -1,0 +1,219 @@
+---
+const projects = [
+	{
+		title: "WeSee · App Annonceur",
+		desc: "Application mobile pour la plateforme publicitaire DOOH WeSee : création de campagne complète, paiement mobile local, API Django/PostgreSQL.",
+		tags: ["React Native", "Expo", "TanStack Query"],
+		year: "2026",
+		accent: "1",
+		link: null,
+	},
+	{
+		title: "WeSee · weseepub.com",
+		desc: "Site vitrine complet : configurateur de tarifs dynamique, liste d'attente en temps réel, déploiement automatisé sur Hostinger.",
+		tags: ["Astro.js", "GSAP", "Lucide"],
+		year: "2026",
+		accent: "2",
+		link: "https://weseepub.com",
+	},
+	{
+		title: "Koteka · oonecard.com",
+		desc: "Plateforme SaaS de profils digitaux dynamiques, accessibles via NFC, QR code ou lien. De la conception aux tests d'usage terrain.",
+		tags: ["Next.js", "Astro.js", "MongoDB"],
+		year: "2026",
+		accent: "3",
+		link: "https://oonecard.com",
+	},
+	{
+		title: "Apifop Formation",
+		desc: "Refonte d'un site d'inscription à des formations sécurité : nettoyage WP, maquettes, mise en conformité Qualiopi.",
+		tags: ["WordPress", "Elementor"],
+		year: "2025",
+		accent: "4",
+		link: null,
+	},
+	{
+		title: "Kelly YT",
+		desc: "Site e-commerce pour un créateur de contenu : vente d'items de jeux vidéo, mise en relation de joueurs, WooCommerce.",
+		tags: ["WordPress", "WooCommerce", "PHP"],
+		year: "2025",
+		accent: "5",
+		link: null,
+	},
+	{
+		title: "MLH · API Symfony",
+		desc: "API REST Symfony pour une app mobile Flutter, intégration LimeSurvey complète (auth, CRUD), pilotage d'une équipe de 2 devs.",
+		tags: ["PHP", "Symfony", "Flutter"],
+		year: "2024",
+		accent: "6",
+		link: null,
+	},
+];
+---
+
+<section class="projects" id="projects">
+	<div class="container">
+		<p class="section-tag">03 · Sélection</p>
+		<h2 class="section-title">Projets <span>récents</span></h2>
+
+		<div class="grid">
+			{projects.map((p) => (
+				<a
+					href={p.link ?? "#contact"}
+					target={p.link ? "_blank" : undefined}
+					rel={p.link ? "noopener noreferrer" : undefined}
+					class={`card accent-${p.accent}`}
+					data-reveal
+				>
+					<div class="card-head">
+						<span class="card-year mono">{p.year}</span>
+						<span class="card-arrow" aria-hidden="true">↗</span>
+					</div>
+					<div class="card-glyph mono">{p.title.slice(0, 2).toUpperCase()}</div>
+					<h3>{p.title}</h3>
+					<p>{p.desc}</p>
+					<div class="card-tags">
+						{p.tags.map((t) => <span class="mono">{t}</span>)}
+					</div>
+				</a>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.projects {
+		position: relative;
+		z-index: 1;
+		padding: 7rem 0;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.4rem;
+	}
+
+	.card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		border: 1px solid var(--panel-border);
+		background: linear-gradient(180deg, rgba(13, 18, 32, 0.7), rgba(10, 14, 24, 0.7));
+		border-radius: 16px;
+		padding: 1.6rem;
+		overflow: hidden;
+		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.card::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(circle at 30% 0%, var(--glow, rgba(79,139,255,0.18)), transparent 60%);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.card:hover {
+		transform: translateY(-4px);
+		border-color: var(--accent);
+		box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+	}
+	.card:hover::before {
+		opacity: 1;
+	}
+
+	.accent-1 { --glow: rgba(79, 139, 255, 0.22); }
+	.accent-2 { --glow: rgba(124, 92, 255, 0.22); }
+	.accent-3 { --glow: rgba(52, 211, 153, 0.2); }
+	.accent-4 { --glow: rgba(251, 191, 36, 0.18); }
+	.accent-5 { --glow: rgba(244, 114, 182, 0.18); }
+	.accent-6 { --glow: rgba(96, 165, 250, 0.2); }
+
+	.card-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		position: relative;
+		z-index: 1;
+	}
+
+	.card-year {
+		font-size: 0.72rem;
+		color: var(--text-faint);
+	}
+
+	.card-arrow {
+		font-size: 0.9rem;
+		color: var(--text-faint);
+		transition: transform 0.25s ease, color 0.25s ease;
+	}
+
+	.card:hover .card-arrow {
+		transform: translate(3px, -3px);
+		color: var(--accent);
+	}
+
+	.card-glyph {
+		position: relative;
+		z-index: 1;
+		width: 46px;
+		height: 46px;
+		border-radius: 12px;
+		border: 1px solid var(--panel-border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--accent);
+		margin: 1.4rem 0 1.2rem;
+		background: var(--bg-soft);
+	}
+
+	.card h3 {
+		position: relative;
+		z-index: 1;
+		font-size: 1.05rem;
+		font-weight: 600;
+		margin-bottom: 0.6rem;
+	}
+
+	.card p {
+		position: relative;
+		z-index: 1;
+		font-size: 0.85rem;
+		color: var(--text-dim);
+		line-height: 1.6;
+		margin-bottom: 1.4rem;
+		flex: 1;
+	}
+
+	.card-tags {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+
+	.card-tags span {
+		font-size: 0.68rem;
+		color: var(--text-dim);
+		border: 1px solid var(--panel-border);
+		padding: 0.28rem 0.55rem;
+		border-radius: 6px;
+	}
+
+	@media (max-width: 980px) {
+		.grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 640px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
